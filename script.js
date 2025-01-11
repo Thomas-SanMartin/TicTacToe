@@ -8,6 +8,22 @@ let gameOver = false;
 
 resetButton.addEventListener('click', resetGame);
 
+// Two-player mode
+const twoPlayerButton = document.getElementById('twoPlayer');
+let twoPlayerMode = false;
+
+twoPlayerButton.addEventListener('click', () => {
+
+  if (!twoPlayerMode && !gameStarted) {  
+  twoPlayerMode = !twoPlayerMode;
+  twoPlayerButton.classList.toggle('active', twoPlayerMode);
+  }
+
+});
+
+let gameStarted = false;
+
+
 function renderBoard() {
   boardElement.innerHTML = '';
   board.forEach((cell, index) => {
@@ -23,6 +39,7 @@ function makeMove(index) {
   if (board[index] || gameOver) return;
 
   board[index] = currentPlayer;
+  gameStarted = true;
   renderBoard();
 
   if (checkWinner()) {
@@ -40,7 +57,7 @@ function makeMove(index) {
   // Switch player
   currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 
-  if (currentPlayer === 'O') {
+  if (!twoPlayerMode && currentPlayer === 'O') {
     const bestMove = findBestMove();
     board[bestMove] = 'O';
     renderBoard();
@@ -129,6 +146,9 @@ function resetGame() {
   gameOver = false;
   messageElement.textContent = '';
   renderBoard();
+  twoPlayerButton.classList.remove('active'); // Reset the two-player button state
+  twoPlayerMode = false; // Reset the two-player mode
+  gameStarted = false; // Reset the gameStarted state
 }
 
 renderBoard();

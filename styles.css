@@ -44,6 +44,21 @@ body {
     border-radius: 5px;
 }
 
+.twoPlayer {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #ff1900;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.twoPlayer.active {
+    background-color: #cc1500; /* Slightly darker red */
+}
+
 .reset:hover {
     background-color: #0056b3;
 }
